@@ -30,7 +30,7 @@ if(empty($email) || empty($password))
     exit("Empty values");
 }
 
-if($stmt = $con->prepare('SELECT id, firstName, lastName, email, dateOfBirth, gender, bio, password FROM usertable WHERE email = ?'))
+if($stmt = $con->prepare('SELECT id, firstName, lastName, email,phone, dateOfBirth, gender, bio, password FROM usertable WHERE email = ?'))
 {
     $stmt->bind_param('s', $email);
     $stmt->execute();
@@ -38,20 +38,25 @@ if($stmt = $con->prepare('SELECT id, firstName, lastName, email, dateOfBirth, ge
 
     if($stmt->num_rows > 0)
     {
-        $stmt->bind_result($id, $firstName, $lastName, $email, $dateOfBirth, $gender, $bio, $hashed_password);
+        $stmt->bind_result($id, $firstName, $lastName, $email,$phone, $dateOfBirth, $gender, $bio, $hashed_password);
         $stmt->fetch();
 
         if(password_verify($password, $hashed_password))
         {
-            // header("Location: ../profile.html");
-            // exit();
-            echo 'Login successful! Welcome, user ' . $firstName . ' ' . $lastName;
-            echo '<br>User Details:';
-            echo '<br>ID: ' . $id;
-            echo '<br>Email: ' . $email;
-            echo '<br>Date of Birth: ' . $dateOfBirth;
-            echo '<br>Gender: ' . $gender;
-            echo '<br>Bio: ' . $bio;
+            // Login successful, send JSON response with user details
+            $userDetails = array(
+                'id' => $id,
+                'firstName' => $firstName,
+                'lastName' => $lastName,
+                'email' => $email,
+                'phone'=>$phone,
+                'dateOfBirth' => $dateOfBirth,
+                'gender' => $gender,
+                'bio' => $bio
+            );
+
+            header('Content-Type: application/json');
+            echo json_encode($userDetails);
         }
         else
         {

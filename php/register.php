@@ -21,6 +21,7 @@ if(empty($_POST['firstName']) ||
    empty($_POST['lastName']) || 
    empty($_POST['email']) || 
    empty($_POST['password']) || 
+   empty($_POST['phone']) || 
    empty($_POST['dateOfBirth']) || 
    empty($_POST['gender']) || 
    empty($_POST['bio']))
@@ -39,10 +40,10 @@ if($stmt = $con->prepare('SELECT id, password FROM usertable WHERE email = ?'))
         echo 'Email already exists';
     }
     else {
-        if($stmt = $con->prepare('INSERT INTO usertable (firstName, lastName, email, password, dateOfBirth, gender, bio) VALUES (?, ?, ?, ?, ?, ?, ?)'))
+        if($stmt = $con->prepare('INSERT INTO usertable (firstName, lastName, email, password, phone, dateOfBirth, gender, bio) VALUES (?, ?, ?, ?, ?, ?, ?, ?)'))
         {
             $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-            $stmt->bind_param('sssssss', $_POST['firstName'], $_POST['lastName'], $_POST['email'], $password, $_POST['dateOfBirth'], $_POST['gender'], $_POST['bio']);
+            $stmt->bind_param('ssssssss', $_POST['firstName'], $_POST['lastName'], $_POST['email'], $password, $_POST['phone'], $_POST['dateOfBirth'], $_POST['gender'], $_POST['bio']);
             $stmt->execute();
             echo 'Successfully Registered';
         }
