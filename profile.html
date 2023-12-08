@@ -9,7 +9,6 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     
 </head>
-
 <body>
     <div class="container mt-5 text-center">
         <h2>USER PROFILE PAGE</h2>
@@ -25,33 +24,7 @@
             </div>
         </div>
     </div>
-
-    <script>
-        var userLoggedIn = localStorage.getItem("userLoggedIn");
-
-        if (userLoggedIn) {
-            var userFirstName = localStorage.getItem("userFirstName");
-            var userLastName = localStorage.getItem("userLastName");
-            var userEmail = localStorage.getItem("userEmail");
-            var userDateOfBirth = localStorage.getItem("userDateOfBirth");
-            var userphone = localStorage.getItem("userphone");
-            var userGender = localStorage.getItem("userGender");
-            var userBio = localStorage.getItem("userBio");
-
-            var userDetailsHtml = `
-                 <li class="list-group-item"><strong>Name:</strong> ${userFirstName} ${userLastName}</li>
-                 <li class="list-group-item"><strong>Email:</strong> ${userEmail}</li>
-                 <li class="list-group-item"><strong>Date of Birth:</strong> ${userDateOfBirth}</li>
-                 <li class="list-group-item"><strong>Gender:</strong> ${userGender}</li>
-                 <li class="list-group-item"><strong>Phone:</strong> ${userphone}</li>
-                 <li class="list-group-item"><strong>Bio:</strong> ${userBio}</li>
-            `;
-
-            document.getElementById("user-details").innerHTML = userDetailsHtml;
-        } else {
-            window.location.href = "./login.html";
-        }
-    </script>
+    <script src="./js/profile.js"></script>
 </body>
 
 </html>

@@ -43,7 +43,6 @@ if($stmt = $con->prepare('SELECT id, firstName, lastName, email,phone, dateOfBir
 
         if(password_verify($password, $hashed_password))
         {
-            // Login successful, send JSON response with user details
             $userDetails = array(
                 'id' => $id,
                 'firstName' => $firstName,
